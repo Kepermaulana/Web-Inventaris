@@ -43,11 +43,11 @@ function AddLeadModalBody({closeModal}){
     return(
         <>
 
-            <InputText type="text" defaultValue={leadObj.first_name} updateType="first_name" containerStyle="mt-4" labelTitle="First Name" updateFormValue={updateFormValue}/>
+            <InputText type="text" defaultValue={leadObj.first_name} updateType="first_name" containerStyle="mt-4" labelTitle="Nama" updateFormValue={updateFormValue}/>
 
-            <InputText type="text" defaultValue={leadObj.last_name} updateType="last_name" containerStyle="mt-4" labelTitle="Last Name" updateFormValue={updateFormValue}/>
+            <InputText type="text" defaultValue={leadObj.last_name} updateType="last_name" containerStyle="mt-4" labelTitle="Username" updateFormValue={updateFormValue}/>
 
-            <InputText type="email" defaultValue={leadObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue}/>
+            <InputText type="email" defaultValue={leadObj.email} updateType="email" containerStyle="mt-4" labelTitle="Level" updateFormValue={updateFormValue}/>
 
 
             <ErrorText styleClass="mt-16">{errorMessage}</ErrorText>

@@ -10,9 +10,9 @@ const userSourceData = [
 
 function UserChannels(){
     return(
-        <TitleCard title={"User Signup Source"}>
+        <TitleCard title={"Selamat datang Admin E-Centrum"}>
              {/** Table Data */}
-             <div className="overflow-x-auto">
+             {/* <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
                     <tr>
@@ -37,7 +37,7 @@ function UserChannels(){
                         }
                     </tbody>
                 </table>
-            </div>
+            </div> */}
         </TitleCard>
     )
 }

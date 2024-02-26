@@ -13,12 +13,12 @@ const TopSideButtons = () => {
     const dispatch = useDispatch()
 
     const openAddNewLeadModal = () => {
-        dispatch(openModal({title : "Add New Lead", bodyType : MODAL_BODY_TYPES.LEAD_ADD_NEW}))
+        dispatch(openModal({title : "Tambah Pengguna Baru", bodyType : MODAL_BODY_TYPES.LEAD_ADD_NEW}))
     }
 
     return(
         <div className="inline-block float-right">
-            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => openAddNewLeadModal()}>Add New</button>
+            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => openAddNewLeadModal()}>Tambah Petugas</button>
         </div>
     )
 }
@@ -50,18 +50,18 @@ function Leads(){
     return(
         <>
             
-            <TitleCard title="Current Leads" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
+            <TitleCard title="Data Petugas" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
 
                 {/* Leads List in table format loaded from slice after api call */}
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email Id</th>
-                        <th>Created At</th>
-                        <th>Status</th>
-                        <th>Assigned To</th>
+                        <th>#</th>
+                        <th>Nama</th>
+                        <th>Username</th>
+                        <th>Level</th>
+                        <th>Aksi</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -70,24 +70,12 @@ function Leads(){
                             leads.map((l, k) => {
                                 return(
                                     <tr key={k}>
-                                    <td>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
-                                                    <img src={l.avatar} alt="Avatar" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="font-bold">{l.first_name}</div>
-                                                <div className="text-sm opacity-50">{l.last_name}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>{l.email}</td>
-                                    <td>{moment(new Date()).add(-5*(k+2), 'days').format("DD MMM YY")}</td>
-                                    <td>{getDummyStatus(k)}</td>
-                                    <td>{l.last_name}</td>
+                                    <td>1</td>
+                                    <td>Rifqi Maulana</td>
+                                    <td>rifqi123</td>
+                                    <td>petugas</td>
                                     <td><button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5"/></button></td>
+                                    <td></td>
                                     </tr>
                                 )
                             })
