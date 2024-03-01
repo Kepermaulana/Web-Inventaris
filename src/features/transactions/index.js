@@ -7,6 +7,12 @@ import { RECENT_TRANSACTIONS } from "../../utils/dummyData"
 import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon'
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon'
 import SearchBar from "../../components/Input/SearchBar"
+import { openModal } from "../common/modalSlice"
+import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_BODY_TYPES_TRANSACTION } from '../../utils/globalConstantUtilTrans'
+import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
+import PencilSquareIcon from '@heroicons/react/24/outline/PencilSquareIcon'
+import {Link} from 'react-router-dom'
+// import { openModal } from "./transactionSlice.js"
 
 const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
 
@@ -14,24 +20,38 @@ const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
     const [searchText, setSearchText] = useState("")
     const locationFilters = ["Paris", "London", "Canada", "Peru", "Tokyo"]
 
-    const showFiltersAndApply = (params) => {
-        applyFilter(params)
-        setFilterParam(params)
-    }
+    const dispatch = useDispatch()
 
-    const removeAppliedFilter = () => {
-        removeFilter()
-        setFilterParam("")
-        setSearchText("")
-    }
+    // const openAddTransactionNewModal = () => {
+    //     dispatch(openModal({title : "Tambah Barang Baru", bodyType : MODAL_BODY_TYPES_TRANSACTION.TRANSACTION_ADD_NEW}))
+    // }
 
-    useEffect(() => {
-        if(searchText == ""){
-            removeAppliedFilter()
-        }else{
-            applySearch(searchText)
-        }
-    }, [searchText])
+    return(
+        <div className="inline-block float-right">
+            <Link to="/app/integration"><button className="btn px-6 btn-sm normal-case btn-primary">Tambah Barang</button></Link>
+        </div>
+    )
+
+}
+
+    // const showFiltersAndApply = (params) => {
+    //     applyFilter(params)
+    //     setFilterParam(params)
+    // }
+
+    // const removeAppliedFilter = () => {
+    //     removeFilter()
+    //     setFilterParam("")
+    //     setSearchText("")
+    // }
+
+    // useEffect(() => {
+    //     if(searchText == ""){
+    //         removeAppliedFilter()
+    //     }else{
+    //         applySearch(searchText)
+    //     }
+    // }, [searchText])
 
     // return(
     //     <div className="inline-block float-right">
@@ -51,10 +71,18 @@ const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
     //         </div>
     //     </div>
     // )
-}
+
 
 
 function Transactions(){
+
+    const dispatch = useDispatch()
+
+
+    const deleteCurrentLead = (index) => {
+        dispatch(openModal({title : "Konfirmasi", bodyType : MODAL_BODY_TYPES_TRANSACTION.CONFIRMATION, 
+        extraObject : { message : `Apakah kamu yakin ingin menghapus barang ini?`, type : CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE, index}}))
+    }
 
 
     const [trans, setTrans] = useState(RECENT_TRANSACTIONS)
@@ -77,18 +105,19 @@ function Transactions(){
     return(
         <>
             
-            <TitleCard title="Recent Transactions" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter}/>}>
+            <TitleCard title="Data Barang" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter}/>}>
 
                 {/* Team Member list in table format loaded constant */}
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email Id</th>
-                        <th>Location</th>
-                        <th>Amount</th>
-                        <th>Transaction Date</th>
+                        <th>No</th>
+                        <th>Asset / Barang</th>
+                        <th>Merek</th>
+                        <th>Kategori</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -97,7 +126,7 @@ function Transactions(){
                                 return(
                                     <tr key={k}>
                                     <td>
-                                        <div className="flex items-center space-x-3">
+                                        {/* <div className="flex items-center space-x-3">
                                             <div className="avatar">
                                                 <div className="mask mask-circle w-12 h-12">
                                                     <img src={l.avatar} alt="Avatar" />
@@ -106,12 +135,18 @@ function Transactions(){
                                             <div>
                                                 <div className="font-bold">{l.name}</div>
                                             </div>
-                                        </div>
+                                        </div> */}
+                                    <div className="font-bold">{l.no}</div>
                                     </td>
-                                    <td>{l.email}</td>
-                                    <td>{l.location}</td>
-                                    <td>${l.amount}</td>
-                                    <td>{moment(l.date).format("D MMM")}</td>
+                                    <td>{l.barang}</td>
+                                    <td>{l.merek}</td>
+                                    <td>{l.kategori}</td>
+                                    <td>{l.jumlah}</td>
+                                    <td>
+                                    <Link to="/app/calendar"><button className="btn btn-square btn-ghost"><PencilSquareIcon className="w-5"/></button></Link>                                       
+                                        <button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5"/></button>
+                                    </td>
+                                    {/* <td>{moment(l.date).format("D MMM")}</td> */}
                                     </tr>
                                 )
                             })

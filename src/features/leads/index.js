@@ -42,9 +42,10 @@ function Leads(){
         else return <div className="badge badge-ghost">Open</div>
     }
 
+
     const deleteCurrentLead = (index) => {
-        dispatch(openModal({title : "Confirmation", bodyType : MODAL_BODY_TYPES.CONFIRMATION, 
-        extraObject : { message : `Are you sure you want to delete this lead?`, type : CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE, index}}))
+        dispatch(openModal({title : "Konfirmasi", bodyType : MODAL_BODY_TYPES.CONFIRMATION, 
+        extraObject : { message : `Apakah kamu yakin ingin menghapus petugas ini?`, type : CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE, index}}))
     }
 
     return(
@@ -69,14 +70,14 @@ function Leads(){
                         {
                             leads.map((l, k) => {
                                 return(
-                                    <tr key={k}>
+                                    <tr>
                                     <td>1</td>
-                                    <td>Rifqi Maulana</td>
-                                    <td>rifqi123</td>
+                                    <td>Testing</td>
+                                    <td>test123</td>
                                     <td>petugas</td>
                                     <td><button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5"/></button></td>
                                     <td></td>
-                                    </tr>
+                                    </tr>                                    
                                 )
                             })
                         }

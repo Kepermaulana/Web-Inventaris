@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import store from './app/store'
 import { Provider } from 'react-redux'
 import SuspenseContent from './containers/SuspenseContent';
+import PrintPdf from '../src/features/settings/billing/index';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,6 +14,7 @@ root.render(
     <Suspense fallback={<SuspenseContent />}>
         <Provider store={store}>
             <App />
+            <PrintPdf/>
         </Provider>
     </Suspense>
   // </React.StrictMode>

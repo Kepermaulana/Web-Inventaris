@@ -7,8 +7,10 @@ import MoonIcon from '@heroicons/react/24/outline/MoonIcon'
 import SunIcon from '@heroicons/react/24/outline/SunIcon'
 import { openRightDrawer } from '../features/common/rightDrawerSlice';
 import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil'
+import SearchBar from "../components/Input/SearchBar"
 
 import { NavLink,  Routes, Link , useLocation} from 'react-router-dom'
+import UserCircleIcon from '@heroicons/react/24/outline/UserCircleIcon'
 
 
 function Header(){
@@ -55,6 +57,10 @@ function Header(){
                     <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1>
                 </div>
 
+                <div className="flex items-center">
+                    <SearchBar/>
+                </div>
+
                 
 
             <div className="flex-none ">
@@ -74,8 +80,8 @@ function Header(){
             {/* Light and dark theme selection toogle **/}
             <label className="swap ">
                 <input type="checkbox"/>
-                <SunIcon data-set-theme="light" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "dark" ? "swap-on" : "swap-off")}/>
-                <MoonIcon data-set-theme="dark" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "light" ? "swap-on" : "swap-off")} />
+                {/* <SunIcon data-set-theme="light" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "dark" ? "swap-on" : "swap-off")}/>
+                <MoonIcon data-set-theme="dark" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "light" ? "swap-on" : "swap-off")} /> */}
             </label>
 
 
@@ -92,17 +98,17 @@ function Header(){
                 <div className="dropdown dropdown-end ml-4">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                        <img src="https://placeimg.com/80/80/people" alt="profile" />
+                        <UserCircleIcon />
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li className="justify-between">
                         <Link to={'/app/settings-profile'}>
                             Profile Settings
-                            <span className="badge">New</span>
+                            {/* <span className="badge">New</span> */}
                             </Link>
                         </li>
-                        <li className=''><Link to={'/app/settings-billing'}>Bill History</Link></li>
+                        {/* <li className=''><Link to={'/app/settings-billing'}>Bill History</Link></li> */}
                         <div className="divider mt-0 mb-0"></div>
                         <li><a onClick={logoutUser}>Logout</a></li>
                     </ul>

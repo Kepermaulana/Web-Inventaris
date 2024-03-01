@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import TitleCard from "../../../components/Cards/TitleCard"
 import { showNotification } from '../../common/headerSlice'
+import InputText from '../../../components/Input/InputText'
+
 
 const TopSideButtons = () => {
 
@@ -33,61 +35,31 @@ const TEAM_MEMBERS = [
 function Team(){
 
 
-    const [members, setMembers] = useState(TEAM_MEMBERS)
+    const dispatch = useDispatch()
 
-    const getRoleComponent = (role) => {
-        if(role  === "Admin")return <div className="badge badge-secondary">{role}</div>
-        if(role  === "Manager")return <div className="badge">{role}</div>
-        if(role  === "Owner")return <div className="badge badge-primary">{role}</div>
-        if(role  === "Support")return <div className="badge badge-accent">{role}</div>
-        else return <div className="badge badge-ghost">{role}</div>
+    // Call API to update profile settings changes
+    const updateProfile = () => {
+        dispatch(showNotification({message : "Barang berhasil Di Update", status : 1}))    
+    }
+
+    const updateFormValue = ({updateType, value}) => {
+        console.log(updateType)
     }
 
     return(
         <>
             
-            <TitleCard title="Active Members" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
+            <TitleCard title="Edit Data Barang" topMargin="mt-2">
 
-                {/* Team Member list in table format loaded constant */}
-            <div className="overflow-x-auto w-full">
-                <table className="table w-full">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email Id</th>
-                        <th>Joined On</th>
-                        <th>Role</th>
-                        <th>Last Active</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            members.map((l, k) => {
-                                return(
-                                    <tr key={k}>
-                                    <td>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-circle w-12 h-12">
-                                                    <img src={l.avatar} alt="Avatar" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="font-bold">{l.name}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>{l.email}</td>
-                                    <td>{l.joinedOn}</td>
-                                    <td>{getRoleComponent(l.role)}</td>
-                                    <td>{l.lastActive}</td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
-            </div>
+                <div className="grid grid-cols-1">
+                    <InputText labelTitle="ID Asset" defaultValue="" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Asset" defaultValue="" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Brand" type="text" defaultValue="" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Kategori" type="text" defaultValue="" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Jumlah Stok" type="text" defaultValue="" updateFormValue={updateFormValue}/>
+                </div>
+                <div className="mt-16"><button className="btn btn-primary float-left">Batal</button></div>
+                <div className="mt-16"><button className="btn btn-primary float-right" onClick={() => updateProfile()}>Perbarui</button></div>
             </TitleCard>
         </>
     )

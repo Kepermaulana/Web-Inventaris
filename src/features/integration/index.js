@@ -2,6 +2,9 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import TitleCard from "../../components/Cards/TitleCard"
 import { showNotification } from "../common/headerSlice"
+import InputText from '../../components/Input/InputText'
+
+
 
 
 const INITIAL_INTEGRATION_LIST = [
@@ -30,10 +33,26 @@ function Integration(){
         dispatch(showNotification({message : `${integration.name} ${integration.isActive ? "disabled" : "enabled"}` , status : 1}))
     }
 
+    const updateFormValue = ({updateType, value}) => {
+        console.log(updateType)
+    }
+
 
     return(
         <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <TitleCard title="Tambah Pengguna" topMargin="mt-2">
+
+            <div className="grid grid-cols-1">
+                <InputText labelTitle="Nama" defaultValue="" updateFormValue={updateFormValue}/>
+                <InputText labelTitle="Username" defaultValue="" updateFormValue={updateFormValue}/>
+                <InputText labelTitle="Level" type="text" defaultValue="" updateFormValue={updateFormValue}/>   
+            </div>        
+            <div className="mt-16"><button className="btn btn-primary float-right">Kirim</button></div>
+            </TitleCard>
+
+
+            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {
                 integrationList.map((i, k) => {
                     return(
@@ -52,7 +71,7 @@ function Integration(){
                 
                 })
             }
-            </div>
+            </div> */}
         </>
     )
 }

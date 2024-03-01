@@ -1,30 +1,49 @@
 import moment from "moment"
+import React, { useRef } from 'react';
+import { useReactToPrint } from 'react-to-print';
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import TitleCard from "../../../components/Cards/TitleCard"
 import { showNotification } from '../../common/headerSlice'
+import { openModal } from "../../common/modalSlice"
+import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_BODY_TYPES } from '../../../utils/globalConstantUtil'
 
 
 
 const BILLS = [
-    {invoiceNo : "#4567", amount : "23,989", description : "Product usages", status : "Pending", generatedOn : moment(new Date()).add(-30*1, 'days').format("DD MMM YYYY"),  paidOn : "-"},
+    {idAsset : "1", barang : "AC",           brand : "Daikin",              kategori : "Elektronik", generatedOn : moment(new Date()).add(-30*1, 'days').format("DD MMM YYYY"),  jmlstok : "-"},
 
-    {invoiceNo : "#4523", amount : "34,989", description : "Product usages", status : "Pending", generatedOn : moment(new Date()).add(-30*2, 'days').format("DD MMM YYYY"), paidOn : "-"},
+    {idAsset : "2", barang : "Almari Kunci", brand : "Premium AF",          kategori : "Furniture", generatedOn : moment(new Date()).add(-30*2, 'days').format("DD MMM YYYY"), jmlstok : "-"},
 
-    {invoiceNo : "#4453", amount : "39,989", description : "Product usages", status : "Paid", generatedOn : moment(new Date()).add(-30*3, 'days').format("DD MMM YYYY"), paidOn : moment(new Date()).add(-24*2, 'days').format("DD MMM YYYY")},
+    {idAsset : "3", barang : "Almari Arsip", brand : "Brother B-104",       kategori : "Furniture", generatedOn : moment(new Date()).add(-30*3, 'days').format("DD MMM YYYY"), jmlstok : "-"},
 
-    {invoiceNo : "#4359", amount : "28,927", description : "Product usages", status : "Paid", generatedOn : moment(new Date()).add(-30*4, 'days').format("DD MMM YYYY"), paidOn : moment(new Date()).add(-24*3, 'days').format("DD MMM YYYY")},
+    {idAsset : "4", barang : "Dispenser",    brand : "Miyako",              kategori : "Furniture", generatedOn : moment(new Date()).add(-30*4, 'days').format("DD MMM YYYY"), jmlstok :"-"},
 
-    {invoiceNo : "#3359", amount : "28,927", description : "Product usages", status : "Paid", generatedOn : moment(new Date()).add(-30*5, 'days').format("DD MMM YYYY"), paidOn : moment(new Date()).add(-24*4, 'days').format("DD MMM YYYY")},
+    {idAsset : "5", barang : "Monitor",      brand : "Logitech",            kategori : "Elektronik", generatedOn : moment(new Date()).add(-30*5, 'days').format("DD MMM YYYY"), jmlstok : "-"},
 
-    {invoiceNo : "#3367", amount : "28,927", description : "Product usages", status : "Paid", generatedOn : moment(new Date()).add(-30*6, 'days').format("DD MMM YYYY"), paidOn : moment(new Date()).add(-24*5, 'days').format("DD MMM YYYY")},
+    {idAsset : "6", barang : "PC",           brand : "Ryzen",               kategori : "Elektronik", generatedOn : moment(new Date()).add(-30*6, 'days').format("DD MMM YYYY"), jmlstok : "-"},
 
-    {invoiceNo : "#3359", amount : "28,927", description : "Product usages", status : "Paid", generatedOn : moment(new Date()).add(-30*7, 'days').format("DD MMM YYYY"), paidOn : moment(new Date()).add(-24*6, 'days').format("DD MMM YYYY")},
+    {idAsset : "7", barang : "IMAC",        brand : "Apple Imac Retina 27", kategori : "Elektronik", generatedOn : moment(new Date()).add(-30*7, 'days').format("DD MMM YYYY"), jmlstok : "-"},
 
-    {invoiceNo : "#2359", amount : "28,927", description : "Product usages", status : "Paid", generatedOn : moment(new Date()).add(-30*8, 'days').format("DD MMM YYYY"), paidOn : moment(new Date()).add(-24*7, 'days').format("DD MMM YYYY")},
+    {idAsset : "8", barang : "UPS",         brand : "",                     kategori : "Elektronik", generatedOn : moment(new Date()).add(-30*8, 'days').format("DD MMM YYYY"), jmlstok : "-"},
 
 
 ]
+
+// const TopSideButtons = () => {
+
+//     // const dispatch = useDispatch()
+
+//     // const openAddNewLeadModal = () => {
+//     //     dispatch(openModal({title : "Cetak Laporan", bodyType : ""}))
+//     // }
+
+  
+
+//     return(
+       
+//     )
+// }
 
 function Billing(){
 
@@ -37,22 +56,32 @@ function Billing(){
         else return <div className="badge badge-ghost">{status}</div>
     }
 
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: 'Visitor Pass',
+    onAfterPrint: () => console.log('Printed PDF successfully!'),
+    });
+
+   
+
     return(
         <>
-            
-            <TitleCard title="Billing History" topMargin="mt-2">
+            <TitleCard title="Data Barang" topMargin="mt-2" >
+             <div className="inline-block float-right" >
+            <button className="btn px-6 btn-sm normal-case btn-primary"  onClick={handlePrint}>Cetak Laporan</button>
+            </div>
 
                 {/* Invoice list in table format loaded constant */}
             <div className="overflow-x-auto w-full">
-                <table className="table w-full">
+                <table className="table w-full" ref={componentRef}>
                     <thead>
                     <tr>
-                        <th>Invoice No</th>
-                        <th>Invoice Generated On</th>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Invoice Paid On</th>
+                        <th>ID Asset</th>
+                        <th>Asset / Barang</th>
+                        <th>Brand</th>
+                        <th>Kategori</th>
+                        <th>Jumlah Stok</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -60,12 +89,11 @@ function Billing(){
                             bills.map((l, k) => {
                                 return(
                                     <tr key={k}>
-                                    <td>{l.invoiceNo}</td>
-                                    <td>{l.generatedOn}</td>
-                                    <td>{l.description}</td>
-                                    <td>${l.amount}</td>
-                                    <td>{getPaymentStatus(l.status)}</td>
-                                    <td>{l.paidOn}</td>
+                                    <td>{l.idAsset}</td>
+                                    <td>{l.barang}</td>
+                                    <td>{l.brand}</td>
+                                    <td>{l.kategori}</td>
+                                    <td>{l.jmlstok}</td>
                                     </tr>
                                 )
                             })

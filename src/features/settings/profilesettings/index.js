@@ -27,17 +27,17 @@ function ProfileSettings(){
             <TitleCard title="Edit Profile" topMargin="mt-2">
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputText labelTitle="Nama Lengkap" defaultValue="Rifqi Maulana" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Username" defaultValue="rifqi123" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Email" defaultValue="rifqi1234@gmail.com" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Foto" defaultValue="13328372832.png" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Nama Lengkap" defaultValue="Testing" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Username" defaultValue="test123" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Email" type="email" defaultValue="test6969@gmail.com" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Foto" type="file" defaultValue="" updateFormValue={updateFormValue}/>
                 </div>
                 <div className="divider" ></div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputText labelTitle="Password saat ini" defaultValue="" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Password Baru" defaultValue="IST" updateFormValue={updateFormValue}/>
-                    <InputText labelTitle="Konfirmasi Password" defaultValue="California" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Password saat ini" type="password" defaultValue="" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Password Baru" type="password" defaultValue="" updateFormValue={updateFormValue}/>
+                    <InputText labelTitle="Konfirmasi Password" type="password" defaultValue="" updateFormValue={updateFormValue}/>
                 </div>
 
                 <div className="mt-16"><button className="btn btn-primary float-right" onClick={() => updateProfile()}>Update</button></div>

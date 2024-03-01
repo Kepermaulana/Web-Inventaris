@@ -6,6 +6,9 @@ import { useDispatch } from 'react-redux'
 import { openRightDrawer } from '../common/rightDrawerSlice'
 import { RIGHT_DRAWER_TYPES } from '../../utils/globalConstantUtil'
 import { showNotification } from '../common/headerSlice'
+import InputText from '../../components/Input/InputText'
+import TitleCard from "../../components/Cards/TitleCard"
+
 
 
 
@@ -31,13 +34,39 @@ function Calendar(){
         dispatch(openRightDrawer({header : title, bodyType : RIGHT_DRAWER_TYPES.CALENDAR_EVENTS, extraObject : {filteredEvents}}))
     }
 
+
+    // Call API to update profile settings changes
+    const updateProfile = () => {
+        dispatch(showNotification({message : "Barang berhasil Di Update", status : 1}))    
+    }
+
+    const updateFormValue = ({updateType, value}) => {
+        console.log(updateType)
+    }
+
     return(
         <>
-           <CalendarView 
+
+            <TitleCard title="Edit Data Barang" topMargin="mt-2">
+
+            <div className="grid grid-cols-1">
+                <InputText labelTitle="ID Asset" defaultValue="" updateFormValue={updateFormValue}/>
+                <InputText labelTitle="Asset" defaultValue="" updateFormValue={updateFormValue}/>
+                <InputText labelTitle="Brand" type="text" defaultValue="" updateFormValue={updateFormValue}/>
+                <InputText labelTitle="Kategori" type="text" defaultValue="" updateFormValue={updateFormValue}/>
+                <InputText labelTitle="Jumlah Stok" type="text" defaultValue="" updateFormValue={updateFormValue}/>
+            </div>
+            <div className="mt-16"><button className="btn btn-primary float-left">Batal</button></div>
+            <div className="mt-16"><button className="btn btn-primary float-right" onClick={() => updateProfile()}>Perbarui</button></div>
+            </TitleCard>
+
+
+
+           {/* <CalendarView 
                 calendarEvents={events}
                 addNewEvent={addNewEvent}
                 openDayDetail={openDayDetail}
-           />
+           /> */}
         </>
     )
 }
