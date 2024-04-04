@@ -56,7 +56,11 @@ const routes = [
     name: 'Cetak Laporan', // name that appear in Sidebar
   },
 
-  
+  {
+    path: '/login',
+    icon: <ArrowRightOnRectangleIcon className={iconClasses}/>,
+    name: 'Logout',
+  },
 
   // {
   //   path: '/app/integration', // url

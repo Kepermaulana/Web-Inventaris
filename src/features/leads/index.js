@@ -67,7 +67,7 @@ function Leads(){
                     </tr>
                     </thead>
                     <tbody>
-                        {
+                        {/* {
                             leads.map((l, k) => {
                                 return(
                                     <tr>
@@ -80,7 +80,7 @@ function Leads(){
                                     </tr>                                    
                                 )
                             })
-                        }
+                        } */}
                     </tbody>
                 </table>
             </div>
